@@ -25,6 +25,11 @@
                     <p>
                         Author :  {{ $project->author }}
                     </p>
+                    <div>
+                        @foreach ($project->technologies as $technology)
+                        <span class="badge rounded-pill text-bg-warning">#{{ $technology->name }}</span>      
+                        @endforeach
+                    </div>
                     <div class="card-img mt-2 mb-2">
                         <img src="{{ asset('storage/imgs/'. $project->image) }}" class="img-fluid" alt="">
                     </div>
