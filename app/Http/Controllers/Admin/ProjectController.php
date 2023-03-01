@@ -24,7 +24,7 @@ class ProjectController extends Controller
         'project_date_start' => 'required',
         'image' => 'required|image',
         'type_id'=>'required|exists:types,id',
-        'technologies'=> 'array',
+        'technologies'=> 'required|array|exists:technologies,id',
 
     ];
     protected $validateMessages = [
@@ -40,6 +40,7 @@ class ProjectController extends Controller
         'image.require' => 'immagine necessaria',
         'image.image' => 'Controlla che sia un immagine',
         'type_id.require'=>'Tipo progetto obbligatorio',
+        'technologies.required'=> 'Campo tecnologie obbligatorio'
     ];
 
 
@@ -79,7 +80,7 @@ class ProjectController extends Controller
         //  dd( $request->all());
         $data =  $request->all();
         $request->validate($this->validateRules, $this->validateMessages);
-        // dd($data);
+        //dd($data);
         $data['author'] = Auth::user()->name;
         $data['slug'] = Str::slug($data['title']);
         $data['image'] = Storage::put('imgs/', $data['image']);
