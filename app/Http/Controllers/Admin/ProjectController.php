@@ -88,6 +88,7 @@ class ProjectController extends Controller
         $newProject = new Project();
         $newProject->fill($data);
         $newProject->save();
+        $newProject->technologies()->sync($data['technologies']);
         return redirect()->route('admin.projects.show', $newProject->id)->with('message', "Project \" $newProject->title \" has been Created")->with('classMessage', "-success");
 
         
@@ -99,7 +100,7 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Project $project)
+    public function show(Project $project )
     {
         //dd($project);
         // $projects = Project::paginate();
@@ -136,6 +137,7 @@ class ProjectController extends Controller
         $data = $request->validate($newValidateRules, $this->validateMessages);
 
         $project->update($data);
+        $project->technologies()->sync($data['technologies']);
         return redirect()->route('admin.projects.show', compact('project'))->with('message', "Project \" $project->title \" has been edit")->with('classMessage', "-success");
     }
 
@@ -147,6 +149,7 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
+        $project->technologies()->sync([]);
         $project->delete();
         return redirect()->route('admin.projects.index')->with('message', "Project \" $project->title \" has been deleted")->with('classMessage', "-danger");
     }
