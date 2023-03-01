@@ -22,8 +22,11 @@
                             </div>
                         @enderror
                         <div class="mb-3 mt-3">
-                       <select class="form-control @error('type_id') is-invalid @enderror "  name="type_id" id="type_id">
-                                @foreach ($types as $type)
+                       <select class="form-control @error('type_id') is-invalid @enderror" aria-label="Project Type"  name="type_id" id="type_id">
+                        {{-- @if(isset($project->type_id))
+                        <option selected>Open this select menu to select type</option>
+                        @endif --}}
+                        @foreach ($types as $type)
                                 <option value="{{ $type->id }}" {{old('type_id', $project->type_id) == $type->id ? 'selected' : '' }}  >  {{ $type->name }}  </option>
                                 @error('type_id')
                                     <div class="invalid-feedback">
@@ -32,6 +35,12 @@
                                 @enderror
                                 @endforeach
                             </select> 
+                        </div>
+                        <div class="mb-3 mt-3">
+                            @foreach ($technologies as $technology)
+                            <label  class="form-check-label"  for="">{{ $technology->name }}</label> 
+                            <input type="checkbox" class="form-check-input me-2"  value="{{ $technology->id }}"  name="technologies[]" id="">
+                            @endforeach
                         </div>
                          {{-- @dump($types, $project)  --}}
                         <div class="mb-3 mt-3">

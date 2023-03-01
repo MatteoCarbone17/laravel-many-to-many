@@ -32,6 +32,9 @@
                             <h5 class="card-title mt-2 mb-2">{{ $project->title }}</h5>
                         </div>
                         <div>
+                            <span class="badge rounded-pill text-bg-warning">#{{ $project->type->name  }}</span> 
+                        </div>
+                        <div>
                             @foreach ($project->technologies as $technology)
                             <span class="badge rounded-pill text-bg-warning">#{{ $technology->name }}</span>      
                             @endforeach
@@ -43,11 +46,6 @@
                             <p class="card-text p-3">{{ $project->content }}</p>
                         </div>
                         <div class="card-footer  rounded-4 p-3">
-                            <div>
-                                <p>
-                                   Project Type: {{ $project->type->name  }}
-                                </p>
-                            </div>
                             <div>
                                 <span class="d-block">Data inizio : {{ $project->project_date_start }} </span>
                                 @if (isset($project->project_date_end))

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Project;
+use App\Models\Technology;
 use App\Models\Type;
 //  Illuminate\Contracts\Validation\Rule ------>  da problemi con Rule::unique
 use Illuminate\Validation\Rule;
@@ -23,6 +24,7 @@ class ProjectController extends Controller
         'project_date_start' => 'required',
         'image' => 'required|image',
         'type_id'=>'required|exists:types,id',
+        'technologies'=> 'array',
 
     ];
     protected $validateMessages = [
@@ -61,7 +63,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('admin.projects.create', ["project" => new Project(),'types'=>Type::all() ]);
+        return view('admin.projects.create', ["project" => new Project(),'types'=>Type::all(), 'technologies' => Technology::all() ]);
        
     }
 
@@ -113,7 +115,7 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        return view('admin.projects.edit', ["project" => $project,'types'=>Type::all() ]);
+        return view('admin.projects.edit', ["project" => $project,'types'=>Type::all(),'technologies' => Technology::all() ]);
     }
 
     /**
